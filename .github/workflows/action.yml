@@ -1,0 +1,41 @@
+﻿name: todo application
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '8.0.x' ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup dotnet ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: display dotnet version
+        run: dotnet --version
+
+      - name: build
+        run: dotnet build
+
+      - name: test with dotnet CLI
+        run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        
+      - name: upload dotnet test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-results-${{ matrix.dotnet-version }}
+          path: TestResults-${{ matrix.dotnet-version }}
+        if: ${{ always() }}
+      
+      - name: login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: publish
+        run: dotnet publish --os linux --arch x64 -c Release /p:PublishProfile=github
