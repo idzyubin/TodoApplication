@@ -9,8 +9,17 @@
         <OutputType>Exe</OutputType>
         <RootNamespace>todo_application</RootNamespace>
         <PublishTrimmed>true</PublishTrimmed>
+        <WebPublishMethod>Container</WebPublishMethod>
+        <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+        <ContainerImageTag>1.0.0</ContainerImageTag>
+        <ContainerRepository>idzyubin/TodoApplication</ContainerRepository>
+        <ContainerRegistry>ghcr.io</ContainerRegistry>
         <ContainerFamily>jammy-chiseled</ContainerFamily>
         <ContainerBaseImage>mcr.microsoft.com/dotnet/nightly/runtime-deps:8.0-jammy-chiseled-aot</ContainerBaseImage>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <ContainerPort Include="80" Type="tcp" />
+    </ItemGroup>
 
 </Project>
