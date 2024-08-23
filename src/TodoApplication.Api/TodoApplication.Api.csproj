@@ -12,7 +12,7 @@
         <WebPublishMethod>Container</WebPublishMethod>
         <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
         <ContainerImageTag>1.0.0</ContainerImageTag>
-        <ContainerRepository>idzyubin/TodoApplication</ContainerRepository>
+        <ContainerRepository>idzyubin/todo_application</ContainerRepository>
         <ContainerRegistry>ghcr.io</ContainerRegistry>
         <ContainerFamily>jammy-chiseled</ContainerFamily>
         <ContainerBaseImage>mcr.microsoft.com/dotnet/nightly/runtime-deps:8.0-jammy-chiseled-aot</ContainerBaseImage>
